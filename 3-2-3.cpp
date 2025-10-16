@@ -7,6 +7,7 @@ class person {
 
  public:
   person();
+  ~person();  // 3.2.5
 
   void set_name(std::string name);
   void set_age(int age);
@@ -20,6 +21,11 @@ class person {
 person::person() : age_(-1) {
   std::cout << "コンストラクター呼び出し" << std::endl;
 }
+
+// 3.2.5
+// personのインスタンスを破棄するときに呼ばれるデストラクター。
+// デストラクターはオーバーロードできない。
+person::~person() { std::cout << "デストラクター呼び出し" << std::endl; }
 
 void person::set_name(std::string name) { name_ = name; }
 
