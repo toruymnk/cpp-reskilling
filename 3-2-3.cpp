@@ -12,6 +12,8 @@ class Person {
   Person(std::string name, int age);  // 3.3.2
   ~Person();                          // 3.2.5
 
+  Person(const Person& other);  // 3.3.3
+
   void SetName(std::string name);
   void SetAge(int age);
 
@@ -46,6 +48,16 @@ Person::Person(std::string name, int age) : Person(age) {
 // デストラクターはオーバーロードできない。
 Person::~Person() { std::cout << "デストラクター呼び出し" << std::endl; }
 
+// 3.3.3
+// コピーコンストラクター
+Person::Person(const Person& other) {
+  std::cout << "コピーコンストラクター呼び出し" << std::endl;
+
+  // 名前と年齢をコピー
+  SetName(other.Name());
+  SetAge(other.Age());
+}
+
 void Person::SetName(std::string name) { name_ = name; }
 
 void Person::SetAge(int age) { age_ = age; }
@@ -68,4 +80,10 @@ int main() {
 
   std::cout << "名前: " << bob.Name() << std::endl;
   std::cout << "年齢: " << bob.Age() << std::endl;
+
+  // 3.3.3
+  Person copied_bob(bob);
+
+  std::cout << "名前: " << copied_bob.Name() << std::endl;
+  std::cout << "年齢: " << copied_bob.Age() << std::endl;
 }
