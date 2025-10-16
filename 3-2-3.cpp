@@ -5,9 +5,12 @@ class Person {
   std::string name_;
   int age_;
 
+  Person(int age);  // 3.3.2
+
  public:
   Person();
-  ~Person();  // 3.2.5
+  Person(std::string name, int age);  // 3.3.2
+  ~Person();                          // 3.2.5
 
   void SetName(std::string name);
   void SetAge(int age);
@@ -16,10 +19,26 @@ class Person {
   int Age() const;
 };
 
+// 3.3.2
+// 共通の初期化処理を行うprivateなコンストラクター。
+Person::Person(int age) : age_(age) {
+  std::cout << "privateなコンストラクター呼び出し" << std::endl;
+  std::cout << "...共通の初期化処理..." << std::endl;
+}
+
 // 不正な値で年齢を初期化するコンストラクター。
 // name_はstd::stringのデフォルトで初期化される。
-Person::Person() : age_(-1) {
-  std::cout << "コンストラクター呼び出し" << std::endl;
+Person::Person() : Person(-1) {
+  std::cout << "デフォルトコンストラクター呼び出し" << std::endl;
+}
+
+// 3.3.2
+// 引数ありコンストラクター
+Person::Person(std::string name, int age) : Person(age) {
+  std::cout << "引数ありコンストラクター呼び出し" << std::endl;
+
+  // メンバー関数を呼び出すことができる。
+  SetName(name);
 }
 
 // 3.2.5
@@ -43,4 +62,10 @@ int main() {
   alice.SetAge(30);
   std::cout << "名前: " << alice.Name() << std::endl;
   std::cout << "年齢: " << alice.Age() << std::endl;
+
+  // 3.3.2
+  Person bob("bob", 40);
+
+  std::cout << "名前: " << bob.Name() << std::endl;
+  std::cout << "年齢: " << bob.Age() << std::endl;
 }
