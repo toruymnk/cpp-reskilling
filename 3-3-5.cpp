@@ -1,0 +1,27 @@
+#include <iostream>
+
+class Foo {
+  int value_;
+
+ public:
+  explicit Foo(int value);
+
+  int Value() const;
+};
+
+Foo::Foo(int value) : value_(value) {
+  std::cout << "コンストラクター呼び出し" << std::endl;
+}
+
+int Foo::Value() const { return value_; }
+
+int main() {
+  // エラー。暗黙的なコンストラクター呼び出しは禁止。
+  // Foo foo = 42;
+
+  Foo foo(42);
+
+  if (foo.Value() == 42) {
+    std::cout << "True" << std::endl;
+  }
+}
